@@ -1,8 +1,7 @@
-package com.thoughtworks.springbootemployee.exception;
+package com.thoughtworks.todollist.exception;
 
 public enum ExceptionMessage {
-    NOT_EXISTS_EMPLOYEE("Not exists employee"),
-    NOT_EXISTS_COMPANY("Not exists company");
+    NOT_EXISTS_TODO("Not exists Todo");
 
     private final String value;
 

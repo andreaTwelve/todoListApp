@@ -1,13 +1,13 @@
-package com.thoughtworks.springbootemployee;
+package com.thoughtworks.todollist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootEmployeeApplication {
+public class TodoListApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootEmployeeApplication.class, args);
+		SpringApplication.run(TodoListApplication.class, args);
 	}
 
 }
