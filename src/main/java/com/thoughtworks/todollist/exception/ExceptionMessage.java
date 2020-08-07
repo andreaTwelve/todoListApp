@@ -13,12 +13,4 @@ public enum ExceptionMessage {
         return this.value;
     }
 
-    public static ExceptionMessage fromValue(String value) {
-        for (ExceptionMessage i : values()) {
-            if (i.getValue().equals(value)) {
-                return i;
-            }
-        }
-        return null;
-    }
 }

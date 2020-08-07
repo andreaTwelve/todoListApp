@@ -27,9 +27,12 @@ public class TodoService {
     }
 
     public Todo updateTodoById(Integer id, Todo todo) throws NotExistTodoException {
+//        if (id != todo.getId()) {
+//            return
+//        }
         Todo actualTodo = todoRepository.findById(todo.getId())
                 .orElseThrow(() -> new NotExistTodoException(ExceptionMessage.NOT_EXISTS_TODO));
-        return todoRepository.save(actualTodo);
+        return todoRepository.save(todo);
     }
 
     public void deleteTodoById(Integer id) throws NotExistTodoException {

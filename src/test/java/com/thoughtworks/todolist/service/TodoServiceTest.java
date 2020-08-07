@@ -72,10 +72,12 @@ public class TodoServiceTest {
     void should_return_updated_todo_when_update_todo_by_id_given_todo_id() throws NotExistTodoException {
         //given
         Todo todo = new Todo(1, "todo", false);
-        when(todoRepository.findById(anyInt())).thenReturn(Optional.of(new Todo()));
+        Todo updatedTodo = new Todo(1, "todo1", true);
+        when(todoRepository.findById(todo.getId())).thenReturn(Optional.of(todo));
+        when(todoRepository.save(updatedTodo)).thenReturn(updatedTodo);
         //when
-        Todo updatedTodo = todoService.updateTodoById(todo.getId(), todo);
+        Todo actualTodo = todoService.updateTodoById(updatedTodo.getId(), updatedTodo);
         //then
-        //assertNotNull(updatedTodo);
+        assertNotNull(actualTodo);
     }
 }
