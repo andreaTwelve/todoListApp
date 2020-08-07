@@ -58,7 +58,7 @@ public class TodoServiceTest {
     }
 
     @Test
-    void should_return_none_when_delete_todo_given_todo_id() {
+    void should_return_none_when_delete_todo_given_wrong_todo_id() {
         //given
         NotExistTodoException notExistTodoException = assertThrows(NotExistTodoException.class, () -> {
             todoService.deleteTodoById(anyInt());
