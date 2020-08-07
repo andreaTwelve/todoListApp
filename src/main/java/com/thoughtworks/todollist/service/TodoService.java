@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class TodoService {
     @Autowired
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
@@ -27,10 +27,10 @@ public class TodoService {
     }
 
     public Todo updateTodoById(Integer id, Todo todo) throws NotExistTodoException {
-//        if (id != todo.getId()) {
-//            return
-//        }
-        Todo actualTodo = todoRepository.findById(todo.getId())
+        if (!id.equals(todo.getId())) {
+            throw new NotExistTodoException(ExceptionMessage.NOT_EXISTS_TODO);
+        }
+        todoRepository.findById(todo.getId())
                 .orElseThrow(() -> new NotExistTodoException(ExceptionMessage.NOT_EXISTS_TODO));
         return todoRepository.save(todo);
     }

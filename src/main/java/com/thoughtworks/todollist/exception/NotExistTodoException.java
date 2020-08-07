@@ -1,7 +1,7 @@
 package com.thoughtworks.todollist.exception;
 
 public class NotExistTodoException extends Exception {
-    private String errorMessage;
+    private final String errorMessage;
 
     public NotExistTodoException(ExceptionMessage notExistsEmployee) {
         this.errorMessage = notExistsEmployee.getValue();

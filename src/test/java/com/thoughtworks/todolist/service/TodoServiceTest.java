@@ -80,4 +80,18 @@ public class TodoServiceTest {
         //then
         assertNotNull(actualTodo);
     }
+
+    @Test
+    void should_return_none_when_update_todo_by_id_given_wrong_todo_id() {
+        //given
+        Todo todo = new Todo(1, "todo", false);
+        Todo updateTodo = new Todo(1, "todo2", false);
+        when(todoRepository.findById(1)).thenReturn(Optional.empty());
+        //when
+        NotExistTodoException notExistTodoException = assertThrows(NotExistTodoException.class, () -> {
+            todoService.updateTodoById(1, updateTodo);
+        });
+        //then
+        assertEquals(ExceptionMessage.NOT_EXISTS_TODO.getValue(), notExistTodoException.getMessage());
+    }
 }
