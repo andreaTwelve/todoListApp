@@ -1,4 +1,4 @@
-package com.thoughtworks.todollist.model;
+package com.thoughtworks.todolist.model;
 
 import javax.persistence.*;
 

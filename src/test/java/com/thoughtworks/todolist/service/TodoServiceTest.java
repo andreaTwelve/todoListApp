@@ -1,10 +1,11 @@
 package com.thoughtworks.todolist.service;
 
-import com.thoughtworks.todollist.exception.ExceptionMessage;
-import com.thoughtworks.todollist.exception.NotExistTodoException;
-import com.thoughtworks.todollist.model.Todo;
-import com.thoughtworks.todollist.repository.TodoRepository;
-import com.thoughtworks.todollist.service.TodoService;
+import com.thoughtworks.todolist.dto.TodoDto;
+import com.thoughtworks.todolist.exception.ExceptionMessage;
+import com.thoughtworks.todolist.exception.NotExistTodoException;
+import com.thoughtworks.todolist.mapper.TodoMapper;
+import com.thoughtworks.todolist.model.Todo;
+import com.thoughtworks.todolist.repository.TodoRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,8 @@ import static org.mockito.Mockito.*;
 public class TodoServiceTest {
     private static List<Todo> todos = new ArrayList<>();
     @Mock
+    TodoMapper todoMapper;
+    @Mock
     TodoRepository todoRepository;
     @InjectMocks
     TodoService todoService;
@@ -37,12 +40,16 @@ public class TodoServiceTest {
     @Test
     void should_return_todo_when_add_todo_given_todo() {
         //given
+        TodoDto todoDto = new TodoDto(1, "todo1", false);
         Todo todo = new Todo(1, "todo1", false);
+
+        when(todoMapper.toTodoEntity(todoDto)).thenReturn(todo);
         when(todoRepository.save(todo)).thenReturn(todo);
+        when(todoMapper.toTodoDto(todo)).thenReturn(new TodoDto());
         //when
-        Todo newTodo = todoService.addTodo(todo);
+        TodoDto newTodoDto = todoService.addTodo(todoDto);
         //then
-        assertNotNull(newTodo);
+        assertNotNull(newTodoDto);
         verify(todoRepository, times(1)).save(todo);
     }
 
@@ -71,25 +78,28 @@ public class TodoServiceTest {
     @Test
     void should_return_updated_todo_when_update_todo_by_id_given_todo_id() throws NotExistTodoException {
         //given
-        Todo todo = new Todo(1, "todo", false);
-        Todo updatedTodo = new Todo(1, "todo1", true);
-        when(todoRepository.findById(todo.getId())).thenReturn(Optional.of(todo));
+        TodoDto updatedTodoDto = new TodoDto(1, "todo2", false);
+        Todo updatedTodo = new Todo(1, "todo2", false);
+        when(todoMapper.toTodoEntity(updatedTodoDto)).thenReturn(updatedTodo);
+        when(todoRepository.findById(updatedTodo.getId())).thenReturn(Optional.of(updatedTodo));
         when(todoRepository.save(updatedTodo)).thenReturn(updatedTodo);
+        when(todoMapper.toTodoDto(updatedTodo)).thenReturn(updatedTodoDto);
         //when
-        Todo actualTodo = todoService.updateTodoById(updatedTodo.getId(), updatedTodo);
+        TodoDto actualTodoDto = todoService.updateTodoById(updatedTodoDto.getId(), updatedTodoDto);
         //then
-        assertNotNull(actualTodo);
+        assertNotNull(actualTodoDto);
     }
 
     @Test
     void should_return_none_when_update_todo_by_id_given_wrong_todo_id() {
         //given
-        Todo todo = new Todo(1, "todo", false);
-        Todo updateTodo = new Todo(1, "todo2", false);
+        TodoDto updatedTodoDto = new TodoDto(1, "todo2", false);
+        Todo updatedTodo = new Todo(1, "todo2", false);
         when(todoRepository.findById(1)).thenReturn(Optional.empty());
+        when(todoMapper.toTodoEntity(updatedTodoDto)).thenReturn(updatedTodo);
         //when
         NotExistTodoException notExistTodoException = assertThrows(NotExistTodoException.class, () -> {
-            todoService.updateTodoById(1, updateTodo);
+            todoService.updateTodoById(updatedTodoDto.getId(), updatedTodoDto);
         });
         //then
         assertEquals(ExceptionMessage.NOT_EXISTS_TODO.getValue(), notExistTodoException.getMessage());

@@ -1,4 +1,4 @@
-package com.thoughtworks.todollist.dto;
+package com.thoughtworks.todolist.dto;
 
 import lombok.Data;
 

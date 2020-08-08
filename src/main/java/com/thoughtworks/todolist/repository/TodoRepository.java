@@ -1,6 +1,6 @@
-package com.thoughtworks.todollist.repository;
+package com.thoughtworks.todolist.repository;
 
-import com.thoughtworks.todollist.model.Todo;
+import com.thoughtworks.todolist.model.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

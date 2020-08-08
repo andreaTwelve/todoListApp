@@ -1,4 +1,4 @@
-package com.thoughtworks.todollist.exception;
+package com.thoughtworks.todolist.exception;
 
 public enum ExceptionMessage {
     NOT_EXISTS_TODO("Not exists Todo");

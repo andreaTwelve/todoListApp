@@ -1,4 +1,4 @@
-package com.thoughtworks.todollist.exception;
+package com.thoughtworks.todolist.exception;
 
 public class NotExistTodoException extends Exception {
     private final String errorMessage;
