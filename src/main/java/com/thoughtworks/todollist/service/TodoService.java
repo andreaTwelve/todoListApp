@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class TodoService {
     @Autowired
-    private final TodoRepository todoRepository;
+    TodoRepository todoRepository;
 
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
